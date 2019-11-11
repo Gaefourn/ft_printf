@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 01:30:51 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/11/11 04:42:23 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/11/11 06:33:07 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	ft_init_fct(pointe fct[255])
 {
 	fct['c'] = &ft_c;
 	fct['s'] = &ft_str;
-	fct['d'] = &ft_num;
-	fct['i'] = &ft_num;
-	fct['x'] = &ft_base;
-	fct['p'] = &ft_base;
-	fct['X'] = &ft_base;
+//	fct['d'] = &ft_num;
+//	fct['i'] = &ft_num;
+//	fct['x'] = &ft_base;
+//	fct['p'] = &ft_base;
+//	fct['X'] = &ft_base;
 }
 
 void	ft_reset_flags(t_struct *p)
@@ -38,12 +38,12 @@ void	ft_reset_flags(t_struct *p)
 ** SELON LES BESOINS
 */
 
-void	ft_init_p(t_struct *p, const char *format)
+void	ft_init_p(t_struct *p, const char *format, pointe fct[255])
 {
 	p->format = format;
 	p->count = 0;
 	p->i = 0;
-	ft_init_fct(p->fct);
+	ft_init_fct(fct);
 	ft_reset_flags(p);
 }
 
@@ -51,19 +51,23 @@ void	ft_init_p(t_struct *p, const char *format)
 int	ft_printf(const char *format, ...)
 {
 	t_struct	p;
+	pointe		fct[255];
 
-	ft_init_p(&p, format);
-	va_start(p->ap, p->format);
-	while (p->format[p->i])
+	ft_init_p(&p, format, fct);
+	va_start(p.ap, format);
+	while (p.format[p.i])
 	{
-		if (p->format[p->i] == '%')
-			ft_look(&p);
+		if (p.format[p.i] == '%')
+		{
+			ft_reset_flags(&p);
+			ft_look(&p, fct);
+		}
 		else
 		{
-			ft_putchar(p->format[p->i]);
-			++p->count;
+			ft_putchar(p.format[p.i]);
+			++p.count;
 		}
-		++p->i;
+		++p.i;
 	}
-	return (p->count);
+	return (p.count);
 }

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 23:13:17 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/11/10 23:23:16 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/11/11 06:26:09 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_check_base(char *base)
 	return (1);
 }
 
-void	ft_putnbr_base(int, n, char *base)
+void	ft_putnbr_base(int n, char *base)
 {
 	long int nb;
 	int		i;
